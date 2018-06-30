@@ -12,11 +12,14 @@ $("#no_akun_kredit").on('change', function(){
 
 $("#jumlah_kredit").on('change', function(){
 	jumlah = this.value;
-
 });
 
 $("#keterangan_kredit").on('change', function(){
-	keterangan = this.value;
+	if(this.value != ""){
+		keterangan = this.value;
+	}else{
+		keterangan = " ";
+	}
 });
 
 function createKreditRow(noAkun, namaAkun, jumlah, keterangan){
@@ -42,7 +45,7 @@ function createKreditRow(noAkun, namaAkun, jumlah, keterangan){
 
 	row.insertAdjacentHTML('beforeend', rowContent);
 
-	clearKreditModalInput()
+	clearKreditModalInput();
 }
 
 function clearKreditModalInput(){
@@ -70,8 +73,14 @@ function refreshTotalKredit(){
 }
 
 $("#kredit_submit").on('click', function(){
-	createKreditRow(noAkun, namaAkun, jumlah, keterangan);
+	if(isInputComplete()){
+		createKreditRow(noAkun, namaAkun, jumlah, keterangan);
 
-	//renew kredit balance
-	refreshTotalKredit();
+		clearVars();
+
+		//renew kredit balance
+		refreshTotalKredit();
+	}else{
+		alert("Silakan isi dengan lengkap!");
+	}
 });
