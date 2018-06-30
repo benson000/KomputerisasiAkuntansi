@@ -40,8 +40,6 @@ function refreshTable(){
 }
 
 function removeRow(row){
-	console.log("Has entered removeRow");
-
 	$(row).parents("tr").remove();
 
 	refreshTable();
@@ -75,6 +73,17 @@ function createDebitRow(noAkun, namaAkun, jumlah, keterangan){
 	clearDebitModalInput();
 }
 
+function isInputComplete(){
+	return noAkun.length != 0 && namaAkun.length != 0 && jumlah != null; //check the completeness of input
+}
+
+function clearVars(){
+	noAkun = "";
+	namaAkun = "";
+	jumlah = "";
+	keterangan = "";
+}
+
 function clearDebitModalInput(){
 	$("#no_akun_debit select").val("");
 	$("#jumlah_debit").val("");
@@ -100,8 +109,14 @@ function refreshTotalDebit(){
 }
 
 $("#debit_submit").on('click', function(){
-	createDebitRow(noAkun, namaAkun, jumlah, keterangan);
+	if(isInputComplete()){
+		createDebitRow(noAkun, namaAkun, jumlah, keterangan);
 
-	//renew debitBalance
-	refreshTotalDebit();
+		clearVars();
+		
+		//renew debitBalance
+		refreshTotalDebit();
+	}else{
+		alert("Silakan isi dengan lengkap!");
+	}
 });
