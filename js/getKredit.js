@@ -5,22 +5,25 @@ var namaAkun;
 var jumlah;
 var keterangan;
 
-$("#no_akun_kredit").on('change', function(){
-	noAkun = this.value.substring(0, 5);
-	namaAkun = this.value.substring(8, this.value.length);
-});
+/*
+		get item function
+ */
 
-$("#jumlah_kredit").on('change', function(){
-	jumlah = this.value;
-});
+function getKredit(){
+	//from option
+ 	noAkun = $("#no_akun_kredit").val().substring(0, 5);
+ 	namaAkun = $("#no_akun_kredit").val().substring(8, $("#no_akun_kredit").val().length);
 
-$("#keterangan_kredit").on('change', function(){
-	if(this.value != ""){
-		keterangan = this.value;
+ 	jumlah = $("#jumlah_kredit").val();
+
+ 	if($("#keterangan_kredit").val() != ""){
+		keterangan = $("#keterangan_kredit").val();
 	}else{
 		keterangan = " ";
 	}
-});
+
+	console.log(jumlah);
+}
 
 function createKreditRow(noAkun, namaAkun, jumlah, keterangan){
 	var row;
@@ -73,6 +76,8 @@ function refreshTotalKredit(){
 }
 
 $("#kredit_submit").on('click', function(){
+	getKredit();
+
 	if(isInputComplete()){
 		createKreditRow(noAkun, namaAkun, jumlah, keterangan);
 
