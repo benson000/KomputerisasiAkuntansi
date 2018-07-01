@@ -6,25 +6,28 @@ function getArray(){
 		if(count != 0){
 			//getting data
 			var noAkun = $.trim($(this).find("td").eq(1).html());
-    		var namaAkun = $.trim($(this).find("td").eq(2).html());
-    		var jumlahDebit = $.trim($(this).find("td").eq(3).html());
-    		var jumlahKredit = $.trim($(this).find("td").eq(4).html());
-    		var keterangan = $.trim($(this).find("td").eq(5).html());
+			var namaAkun = $.trim($(this).find("td").eq(2).html());
+			var jumlahDebit = $.trim($(this).find("td").eq(3).html());
+			var jumlahKredit = $.trim($(this).find("td").eq(4).html());
+			var keterangan = $.trim($(this).find("td").eq(5).html());
 
-    		//push to array
-    		tableData.push({
-    			//from form
-    			Unit: unit,
-    			JenisKas: tipekas,
-    			Tanggal: tanggalJadi,
+			//push to array
+			tableData.push({
+				//from nobukti
+				NoBukti: nobukti,
 
-    			//from modals
-    			NomorAkun: noAkun,
-    			NamaAkun: namaAkun,
-    			Debit: jumlahDebit,
-    			Kredit: jumlahKredit,
-    			Keterangan: keterangan
-    		});
+				//from form
+				Unit: unit,
+				JenisKas: tipekas,
+				Tanggal: tanggalJadi,
+
+				//from modals
+				NomorAkun: noAkun,
+				NamaAkun: namaAkun,
+				Debit: jumlahDebit,
+				Kredit: jumlahKredit,
+				Keterangan: keterangan
+			});
 		}
 	});
 }
@@ -34,12 +37,11 @@ function createJSON(){
 }
 
 function emptyArray(){
-	tableData = {};
+	tableData = [];
 }
 
 function emptyTable(){
 	$("table tbody tr").remove();
-	index = 0; //tambahTransaksi.js 
 }
 
 function isBalance(){
@@ -68,9 +70,9 @@ $("#final_input").on('click', function(){
 
 		//clear the tables row
 		emptyTable();
-		rowIndex = 0;
-
-		
+		refreshTotalDebit();
+		refreshTotalKredit();
+		rowIndex = 1;
 	}else{
 		alert("Jumlah debit dan kredit harus sama");
 	}
