@@ -3,17 +3,42 @@
 	require('config.php');
 
 	$data = json_decode($_POST['jsonData']);
-
 	$length = count($data);
-	echo $length; //make sure the number of JSON array is true
 
-	echo "\n\n";
+	//table config
+	$tableName = "`jurnal_umum`";
+	$tableModel = [
+		"`no_bukti`",
+		"`tanggal`",
+		"`unit`",
+		"`jenis_kas`",
+		"`nomor_akun`",
+		"`nama_akun`",
+		"`debit`",
+		"`kredit`",
+		"`keterangan`"
+	];
 
-	$sql = "INSERT INTO `jurnal_umum`(`tanggal`, `unit`, `jenis_kas`, `nomor_akun`, `nama_akun`, `debit`, `kredit`, `keterangan`) VALUES ";
+	$sql = "INSERT INTO ".$tableName;
+
+	//add model to sql
+	$sql .= "(";
+	for($a = 0; $a<count($tableModel); $a++){
+		$sql .= $tableModel[$a];
+
+		if($a != count($tableModel) - 1){
+			$sql .= ", ";
+		}
+	}
+
+	$sql .= ")";
+	$sql .= " VALUES ";
 
 	//add data to sql
 	for ($i = 0; $i<$length; $i++) { //loop to create values, example (bla, bla bla), (bla, bla, bla)
 		//catch all the data in vars
+		$nobukti = "'".$data[$i]->NoBukti."'";
+
 		$tanggal = "'".$data[$i]->Tanggal."'";
 		$unit = "'".$data[$i]->Unit."'";
 		$jenisKas = "'".$data[$i]->JenisKas."'";
@@ -26,6 +51,7 @@
 
 		//easier to arrange right :^) eventhough it took so much line
 		$sql .= "(";
+		$sql .= $nobukti.", ";
 		$sql .= $tanggal.", ";
 		$sql .= $unit.", ";
 		$sql .= $jenisKas.", ";
@@ -41,8 +67,8 @@
 			$sql .= ", ";
 		}
 	}
-	echo $sql; //make sure this is SQL you wanted
-	echo "\n\n";
+	//echo $sql; //make sure this is SQL you wanted
+	//echo "\n\n";
 
 	//execute query
 	if($connect->query($sql)){
