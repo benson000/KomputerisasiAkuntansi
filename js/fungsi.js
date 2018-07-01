@@ -33,7 +33,7 @@
 	function refreshnobukti(){
 		mm = romanize(bulan);
 		
-		var nobukti = norut + "/" + tipekas + "/" + unit + "/" + mm + "/" +tahun;
+		nobukti = norut + "/" + tipekas + "/" + unit + "/" + mm + "/" +tahun;
 		
 		$("#nobukti").text(nobukti);
 	}
