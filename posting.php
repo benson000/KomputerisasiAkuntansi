@@ -33,7 +33,7 @@
 
 								<select id="yearSelected" class="selectpicker" data-style="btn-info">
 									<?php
-										$tahun = 2018;
+										$tahun = date("Y");
 
 										for($i = 0; $i <= 10; $i++){
 											echo "<option value='".$tahun."'>".$tahun."</option>";
