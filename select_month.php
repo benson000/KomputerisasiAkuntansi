@@ -9,4 +9,6 @@
 			echo "<option value='".$row['id']."'>".$row['nama_bulan']."</option>";
 		}
 	}
+
+	$connect->close();
 ?>
